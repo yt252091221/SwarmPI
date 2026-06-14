@@ -24,14 +24,6 @@
 └── README.md
 ```
 
-## 数据集
-
-数据集采用 MOT Challenge 格式，每个序列目录包含：
-
-- `det.txt` 或 `det/det.txt` - 检测结果
-- `gt.txt` 或 `gt/gt.txt` - 标注真值
-- `seqinfo.ini` - 序列元信息
-- `img1/` - 图像帧
 
 ### 自采集数据
 
@@ -70,13 +62,6 @@ pip install -r requirements.txt
 - PyTorch (DeepSORT 特征提取)
 
 ## 算法说明
-
-### SwarmPI v6
-
-核心创新点：
-- **零水印身份编码**: 基于 DWT 的三值化零水印特征，用于目标身份保持
-- **Prototype 独立验证**: 将 Prototype 作为身份验证层，与局部特征（空间/HSV/运动/零水印）互补
-- **自适应特征融合**: 在线学习各特征分量的权重
 
 ### 对比算法
 
