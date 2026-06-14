@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+conda-env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dataset images (download from GitHub Releases)
+data/*/img1/
+data/**/img1/
+
+# Results and outputs
+results/
+outputs/
+*.csv
+*.json
+runs/
+wandb/
+
+# Logs
+*.log
