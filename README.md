@@ -6,7 +6,7 @@
 
 ```
 ├── V6.py                    # SwarmPI v6 核心追踪器
-├── algorithms/              # 对比算法实现
+├── algorithms/              # 对比算法实现,zip文件上传的
 │   ├── bytetrack/           # ByteTrack
 │   ├── deepsort/            # DeepSORT
 │   ├── ocsort/              # OC-SORT
