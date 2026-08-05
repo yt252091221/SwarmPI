@@ -1,42 +1,24 @@
-# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.egg-info/
-dist/
-build/
-*.egg
-.eggs/
-
-# Environments
-.venv/
-venv/
-env/
-ENV/
-conda-env/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Dataset images (download from GitHub Releases)
-data/*/img1/
-data/**/img1/
-
-# Results and outputs
-results/
-outputs/
-*.csv
-*.json
-runs/
-wandb/
-
-# Logs
 *.log
+.pytest_cache/
+.vscode/
+.idea/
+
+# Generated reproduction tables and reports.
+table4_reproduction.*
+ablation_reproduction.*
+
+# Generated logs and TrackEval state.
+logs/
+deps/TrackEval/data/gt/mot_challenge/*
+deps/TrackEval/data/seqmaps/*
+deps/TrackEval/data/trackers/
+!deps/TrackEval/data/gt/mot_challenge/.gitkeep
+!deps/TrackEval/data/seqmaps/.gitkeep
+!deps/TrackEval/data/trackers/.gitkeep
+
+# Non-final local DeepSORT checkpoints copied from the source bundle.
+code/algorithms/deepsort/deep_sort/deep/checkpoint/ckpt_autogen.t7
+code/algorithms/deepsort/deep_sort/deep/checkpoint/original_ckpt.t7
+

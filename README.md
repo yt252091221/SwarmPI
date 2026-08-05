@@ -1,78 +1,59 @@
-# SwarmPI - 身份保持多目标追踪
+# UAV Identity-Preserving Tracking Reproduction
 
-基于零水印身份验证的多目标追踪系统（v6），集成了多种经典追踪算法用于性能对比。
+This repository provides a self-contained reproduction package for UAV
+multi-object tracking and identity-preservation experiments. It includes the
+bundled input data, runnable scripts, model files, tracker implementations,
+and TrackEval.
 
-## 项目结构
+The package is portable: runtime paths are resolved from the repository
+location, so it can be cloned or moved to another directory without editing
+machine-specific paths.
 
-```
-├── V6.py                    # SwarmPI v6 核心追踪器
-├── algorithms/              # 对比算法实现,zip文件上传的
-│   ├── bytetrack/           # ByteTrack
-│   ├── deepsort/            # DeepSORT
-│   ├── ocsort/              # OC-SORT
-│   └── boxmot/              # BotSort / StrongSORT (via boxmot)
-├── data/
-│   ├── full_sequences/      # 完整数据集
-│   │   ├── count2/          # （自采集）
-│   │   ├── count3/          # （自采集）
-│   │   ├── watercraft/      # （自采集）
-│   │   ├── uavswarm39/      # （公开数据集，需下载图像）
-│   │   ├── uavswarm43/      # （公开数据集，需下载图像）
-│   │   └── uavswarm61/      # （公开数据集，需下载图像）
-│   └── MOT17-02-FRCNN/      # MOT17 参考序列（公开数据集，需下载图像）
-├── requirements.txt
-└── README.md
+## Run the full comparison
+
+From the repository root:
+
+```powershell
+python -m pip install -r requirements.txt
+python runall.py
 ```
 
+The command runs the complete comparison on all included datasets and writes
+the tables and evaluation summaries to the generated output directory.
 
-### 自采集数据
+To enable the separate ablation run:
 
-`count2`、`count3`、`watercraft` 为自采集数据集。 [图像](../../releases) 文件已托管在页面：
-
-| 数据集 | 下载文件 | 解压目标 |
-|--------|----------|----------|
-| count2 | count2_img1.zip | `data/full_sequences/count2/img1/` |
-| count3 | count3_img1.zip | `data/full_sequences/count3/img1/` |
-| watercraft | watercraft_img1.zip | `data/full_sequences/watercraft/img1/` |
-
-### 公开数据集
-
-以下数据集的标注文件已包含在仓库中，图像需从原始来源下载后放入对应 `img1/` 目录：
-
-| 数据集 | 下载链接 |
-|--------|----------|
-| MOT17 | [MOT17 Challenge](https://motchallenge.net/data/MOT17/) |
-| UAVSwarm | [UAVSwarm Dataset](https://github.com/UAVSwarm/UAVSwarm-dataset) |
-
-下载后将图像帧放入对应目录的 `img1/` 文件夹即可。
-
-## 依赖环境
-
-```bash
-pip install -r requirements.txt
+```powershell
+python runall.py --ablation --force
 ```
 
-主要依赖：
+For a CPU-only environment, set the execution device in the runner as needed.
+The package was tested with Python 3.10 and CUDA-enabled PyTorch; CPU
+execution is also supported but may take longer.
 
-- Python 3.8+
-- NumPy, OpenCV, SciPy
-- PyWavelets (零水印特征)
-- filterpy (Kalman 滤波)
-- ultralytics (YOLO 检测)
-- PyTorch (DeepSORT 特征提取)
+## Included datasets
 
-## 算法说明
+The package contains six UAV tracking datasets:
 
-### 对比算法
+- UAVSwarm-39
+- UAVSwarm-25
+- UAVSwarm-61
+- Watercraft
+- Court-3
+- Court-2
 
-| 算法 | 说明 |
-|------|------|
-| ByteTrack | 基于 IoU 关联的高效追踪器 |
-| DeepSORT | 结合深度外观特征的追踪器 |
-| OC-SORT | 基于观测为中心的追踪器 |
-| BotSort | ByteTrack + ReID 外观特征 |
-| StrongSORT | 强化版 SORT 追踪器 |
+Each sequence is stored under `data/k3_sequences/` with its images,
+detections, and annotations.
 
-## 引用
+## Repository layout
 
-如果本项目对您的研究有帮助，请引用相关论文。
+```text
+runall.py                      one-command entrypoint
+code/                          final reproduction code
+data/k3_sequences/             six bundled datasets
+deps/TrackEval/                bundled evaluation code
+weights/                       required model files
+```
+
+Generated tables, tracker outputs, logs, caches, and temporary evaluation
+files are created locally and are not part of the repository.
